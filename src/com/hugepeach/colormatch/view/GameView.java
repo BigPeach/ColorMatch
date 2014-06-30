@@ -1,4 +1,4 @@
-package com.hugepeach.colormatch.com.hugepeach.colormatch.view;
+package com.hugepeach.colormatch.view;
 
 import android.content.Context;
 import android.content.res.Resources;
@@ -8,14 +8,14 @@ import android.graphics.Paint;
 import android.os.Handler;
 import android.os.Message;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
+import com.hugepeach.colormatch.controller.DrawController;
 
 
 /**
- * Created by taozui on 14-6-27.
+ * Created by BigPeach on 14-6-27.
  */
 public class GameView extends SurfaceView implements SurfaceHolder.Callback {
     private static final int MAX_FRAME = 30;//30FPS
@@ -24,9 +24,12 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
     private SurfaceHolder mHolder;
     private Paint mPaint;
     private Resources mResources;
+    private DrawController mDrawController;
+    private Context mContext;
 
     public GameView(Context context, AttributeSet attrs) {
         super(context, attrs);
+        mContext = context;
         init();
     }
 
@@ -35,6 +38,7 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
         mPaint = new Paint();
         mHolder = getHolder();
         mHolder.addCallback(this);
+        mDrawController = new DrawController(mContext);
     }
 
     @Override
@@ -76,7 +80,7 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
             if (canvas == null) {
                 return;
             }
-
+            drawGame(canvas,mPaint);
             canvas.drawCircle(50,50,50,mPaint);
             mPaint.setColor(Color.BLUE);
             mHolder.unlockCanvasAndPost(canvas);
@@ -92,5 +96,6 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
     }
 
     private void drawGame(Canvas canvas, Paint mPaint) {
+        mDrawController.drawBackground(canvas,mPaint);
     }
 }

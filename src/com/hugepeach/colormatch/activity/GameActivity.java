@@ -1,8 +1,8 @@
-package com.hugepeach.colormatch;
+package com.hugepeach.colormatch.activity;
 
 import android.app.Activity;
 import android.os.Bundle;
-import com.hugepeach.colormatch.com.hugepeach.colormatch.view.GameView;
+import com.hugepeach.colormatch.view.GameView;
 
 public class GameActivity extends Activity {
     /**
