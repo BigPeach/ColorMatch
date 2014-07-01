@@ -39,6 +39,7 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
         mHolder = getHolder();
         mHolder.addCallback(this);
         mDrawController = new DrawController(mContext);
+        mDrawController.initRes();
     }
 
     @Override
@@ -81,8 +82,6 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
                 return;
             }
             drawGame(canvas,mPaint);
-            canvas.drawCircle(50,50,50,mPaint);
-            mPaint.setColor(Color.BLUE);
             mHolder.unlockCanvasAndPost(canvas);
         }
         long time = System.currentTimeMillis() - startTime;
@@ -92,10 +91,12 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
             mHandler.sendEmptyMessage(REFRESH_VIEW);
         }
         postInvalidate();
-
     }
 
-    private void drawGame(Canvas canvas, Paint mPaint) {
-        mDrawController.drawBackground(canvas,mPaint);
+    private void drawGame(Canvas canvas, Paint paint) {
+        mDrawController.drawBackground(canvas,paint);
+        mDrawController.drawCatcher(canvas,paint);
     }
+
+
 }

@@ -4,16 +4,51 @@ import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Canvas;
 import android.graphics.Paint;
+import android.util.Log;
+import com.hugepeach.colormatch.R;
+import com.hugepeach.colormatch.sprite.Ball;
+import com.hugepeach.colormatch.sprite.Catcher;
+import com.hugepeach.colormatch.util.Utils;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by BigPeach on 6/30/14.
  */
 public class DrawController {
+    private static final String TAG = "DrawController";
     private Context mContext;
     private Resources mResources;
+    private List<Ball> mListBall;
+    private List<Catcher> mListCatcher;
     public DrawController(Context context) {
         mContext = context;
         mResources = context.getResources();
+    }
+
+    public void initRes(){
+        initBall();
+        initCatcher();
+    }
+
+    private void initBall(){
+        mListBall = new ArrayList<Ball>();
+
+    }
+
+    private void initCatcher(){
+        mListCatcher = new ArrayList<Catcher>();
+        int width = Utils.getScreenWidth(mContext);
+        int height = Utils.getScreenHeight(mContext);
+        while(width > 0){
+            Catcher catcher = new Catcher(mContext);
+            width -= catcher.getWidth()+(catcher.getWidth()>>2);
+            catcher.setPosition(width,height - catcher.getHeight());
+
+            mListCatcher.add(catcher);
+        }
+        Log.i(TAG,"list size = "+mListCatcher.size());
     }
 
     public void initImages(){
@@ -22,5 +57,11 @@ public class DrawController {
 
     public void drawBackground(Canvas canvas,Paint paint){
         canvas.drawColor(0xFFFFD0A2);
+    }
+
+    public void drawCatcher(Canvas canvas,Paint paint){
+        for(Catcher catcher:mListCatcher){
+            catcher.draw(canvas,paint);
+        }
     }
 }

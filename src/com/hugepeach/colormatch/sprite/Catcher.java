@@ -1,16 +1,20 @@
 package com.hugepeach.colormatch.sprite;
 
-import android.content.res.Resources;
+import android.content.Context;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
 import com.hugepeach.colormatch.R;
+import com.hugepeach.colormatch.util.Utils;
 
 /**
  * Created by BigPeach on 6/30/14.
  */
 public class Catcher extends Sprite {
 
-    public Catcher(Resources resources) {
-        setHeight(resources.getInteger(R.integer.catcher_height));
-        setWidth(resources.getInteger(R.integer.ball_r)<<1);
+    public Catcher(Context context) {
+        setHeight(Utils.getScreenHeight(context)/5);
+        setWidth(Utils.getBallR(context)<<1);
     }
 
     public void setPosition(int x,int y){
@@ -35,5 +39,10 @@ public class Catcher extends Sprite {
         }
 
         return false;
+    }
+
+    public void draw(Canvas canvas,Paint paint){
+        paint.setColor(Color.BLUE);
+        canvas.drawRect(getX(),getY(),getX()+getWidth(),getHeight()+getY(),paint);
     }
 }

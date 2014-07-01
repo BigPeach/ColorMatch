@@ -13,5 +13,6 @@ public class Constants {
     public interface GAME_VALUE{
         public static final int BALL_DROP_DEFAULT_SPEED = 1;
         public static final int BALL_DROP_ASPEED = 1;
+        public static final int MAX_BALLS = 5;
     }
 }

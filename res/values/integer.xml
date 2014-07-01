@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <integer name="ball_r">15</integer>
-    <integer name="catcher_height">50</integer>
-</resources>
