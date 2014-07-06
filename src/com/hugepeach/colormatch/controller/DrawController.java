@@ -6,6 +6,7 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.util.Log;
 import com.hugepeach.colormatch.R;
+import com.hugepeach.colormatch.constants.Constants;
 import com.hugepeach.colormatch.sprite.Ball;
 import com.hugepeach.colormatch.sprite.Catcher;
 import com.hugepeach.colormatch.util.Utils;
@@ -41,11 +42,13 @@ public class DrawController {
         mListCatcher = new ArrayList<Catcher>();
         int width = Utils.getScreenWidth(mContext);
         int height = Utils.getScreenHeight(mContext);
-        while(width > 0){
+        int buffer = Utils.getCatcherBuffer(mContext);
+        Log.i(TAG,"BUFFER = "+buffer);
+        int x = buffer;
+        while(x < width){
             Catcher catcher = new Catcher(mContext);
-            width -= catcher.getWidth()+(catcher.getWidth()>>2);
-            catcher.setPosition(width,height - catcher.getHeight());
-
+            catcher.setPosition(x,height - catcher.getHeight());
+            x += catcher.getWidth()+buffer;
             mListCatcher.add(catcher);
         }
         Log.i(TAG,"list size = "+mListCatcher.size());

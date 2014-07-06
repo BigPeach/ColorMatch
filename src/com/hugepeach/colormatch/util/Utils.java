@@ -19,6 +19,14 @@ public class Utils {
     }
 
     public static final int getBallR(Context context){
-        return Utils.getScreenWidth(context)/ Constants.GAME_VALUE.MAX_BALLS * 9/10 >> 1;
+        return Utils.getScreenWidth(context)/ Constants.GAME_VALUE.MAX_BALLS * 8/10 >> 1;
+    }
+
+    public static final int getCatcherWidth(Context context){
+        return getBallR(context)<<1;
+    }
+
+    public static final int getCatcherBuffer(Context context){
+        return (getScreenWidth(context) - getCatcherWidth(context) * Constants.GAME_VALUE.MAX_BALLS)/(Constants.GAME_VALUE.MAX_BALLS+1);
     }
 }

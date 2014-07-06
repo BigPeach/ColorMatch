@@ -14,7 +14,7 @@ public class Catcher extends Sprite {
 
     public Catcher(Context context) {
         setHeight(Utils.getScreenHeight(context)/5);
-        setWidth(Utils.getBallR(context)<<1);
+        setWidth(Utils.getCatcherWidth(context));
     }
 
     public void setPosition(int x,int y){
