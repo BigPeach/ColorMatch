@@ -8,6 +8,7 @@ import android.graphics.Paint;
 import android.os.Handler;
 import android.os.Message;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
@@ -18,6 +19,7 @@ import com.hugepeach.colormatch.controller.DrawController;
  * Created by BigPeach on 14-6-27.
  */
 public class GameView extends SurfaceView implements SurfaceHolder.Callback {
+    private static final String TAG = "GameView";
     private static final int MAX_FRAME = 30;//30FPS
     private static final int BUFFER_TIME = 1000 / MAX_FRAME;
     private static final int REFRESH_VIEW = -1;
@@ -41,9 +43,24 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
         mDrawController = new DrawController(mContext);
         mDrawController.initRes();
     }
-
+    private int mStartX;
+    private int mBufferX;
     @Override
     public boolean onTouchEvent(MotionEvent event) {
+        switch (event.getAction()){
+            case MotionEvent.ACTION_DOWN:
+                mStartX = (int)event.getX();
+                return true;
+            case MotionEvent.ACTION_MOVE:
+                mBufferX = (int)event.getX()-mStartX;
+                Log.i(TAG,"mBuffer = "+mBufferX);
+                mDrawController.moveCatcher(mBufferX);
+                return true;
+            case MotionEvent.ACTION_UP:
+                mDrawController.resetBasicCatcher();
+                mBufferX = 0;
+                return true;
+        }
         return super.onTouchEvent(event);
     }
 
